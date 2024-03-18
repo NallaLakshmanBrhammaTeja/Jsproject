@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color Picker</title>
+    <style>
+        .color-picker-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #colorPicker {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body style="background-color: rgb(68, 195, 204);">
+    <div class="color-picker-container">
+        <label for="color">Choose a color: </label>
+        <input type="color" id="color" value="#ff0000" onclick="toggleColorPicker()">
+        <br>
+        <input type="text" id="hex" readonly>
+        <!-- <h1>Hello World</h1> -->
+
+        <div id="colorPicker">
+            <label for="volume">Adjust Color: </label>
+            <input type="range" id="volume" min="0" max="360" step="1" value="0" oninput="updateColor()">
+        </div>
+    </div>
+
+    <script>
+        let colorInput = document.querySelector('#color');
+        let hexInput = document.querySelector('#hex');
+        let colorPicker = document.querySelector('#colorPicker');
+
+        function toggleColorPicker() {
+            colorPicker.style.display = colorPicker.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function updateColor() {
+            let hue = document.getElementById('volume').value;
+            let color = `hsl(${hue}, 100%, 50%)`;
+            colorInput.value = color;
+            hexInput.value = color;
+            document.body.style.backgroundColor = color;
+        }
+
+        colorInput.addEventListener('input', () => {
+            let color = colorInput.value;
+            hexInput.value = color;
+            document.body.style.backgroundColor = color;
+        });
+    </script>
+</body>
+
+</html>
